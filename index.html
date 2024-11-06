@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot by Slymi</title>
     <style>
-        /* Main page styling */
+        /* Main styling */
         body {
             background-color: #2c2f33;
             color: #ffffff;
@@ -17,7 +17,8 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            overflow: hidden; /* Hides scrollbars */
+            overflow: hidden;
+            cursor: none; /* Hide default cursor for custom effect */
         }
         h1 {
             font-size: 2.5em;
@@ -66,9 +67,11 @@
         .circle {
             position: absolute;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
             pointer-events: none;
             mix-blend-mode: overlay;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.4s ease, opacity 0.4s ease;
         }
     </style>
 </head>
@@ -112,23 +115,25 @@
     <script>
         const background = document.querySelector('.background');
 
-        // Function to create animated circles on mouse movement
         document.addEventListener('mousemove', (e) => {
             const circle = document.createElement('div');
             circle.classList.add('circle');
-            circle.style.width = circle.style.height = `${Math.random() * 100 + 20}px`;
-            circle.style.left = `${e.pageX}px`;
-            circle.style.top = `${e.pageY}px`;
-            circle.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+            
+            // Set the circle size and position at the cursor location
+            const size = Math.random() * 20 + 10;  // Random size for more natural look
+            circle.style.width = circle.style.height = `${size}px`;
+            circle.style.left = `${e.pageX - size / 2}px`;
+            circle.style.top = `${e.pageY - size / 2}px`;
+            
             background.appendChild(circle);
 
+            // Animate the circle's fade and remove it after animation completes
             setTimeout(() => {
                 circle.style.transform = 'scale(2)';
                 circle.style.opacity = '0';
             }, 0);
 
-            // Remove the circle after animation ends
-            setTimeout(() => background.removeChild(circle), 500);
+            setTimeout(() => background.removeChild(circle), 400);
         });
     </script>
 
