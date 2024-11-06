@@ -84,19 +84,6 @@
             50% { opacity: 1; }
             100% { opacity: 0.5; }
         }
-
-        /* Cursor Styling */
-        .cursor {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: orange;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000; /* Ensure it's above other elements */
-            transform: translate(-50%, -50%);
-        }
-
     </style>
 </head>
 <body>
@@ -154,9 +141,9 @@
                 let currentX = parseFloat(star.style.left) || 0;
                 let currentY = parseFloat(star.style.top) || 0;
 
-                // Move stars slowly across the screen
-                star.style.left = `${currentX + 0.05}%`; // Slow horizontal movement
-                star.style.top = `${currentY + 0.05}%`; // Slow vertical movement
+                // Speed up the star movement by adjusting the values
+                star.style.left = `${currentX + 0.2}%`; // Faster horizontal movement
+                star.style.top = `${currentY + 0.2}%`; // Faster vertical movement
 
                 // Reset the stars position once they go out of bounds
                 if (currentX > 100) star.style.left = "0%";
@@ -166,8 +153,8 @@
             });
         }
 
-        // Continuously move stars every 50ms for smooth animation
-        setInterval(moveStars, 50);
+        // Continuously move stars every 30ms for a faster animation
+        setInterval(moveStars, 30);
 
         // Parallax effect for the custom cursor
         document.body.addEventListener("mousemove", function (e) {
