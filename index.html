@@ -147,23 +147,39 @@
             star.style.animationDuration = `${Math.random() * 3 + 1}s`;
         }
 
-        // Parallax effect when moving the cursor
-        document.body.addEventListener("mousemove", function (e) {
+        // Function to move the stars automatically (Parallax effect)
+        function moveStars() {
             let stars = document.querySelectorAll(".star");
-            let mouseX = e.clientX;
-            let mouseY = e.clientY;
+
+            stars.forEach(star => {
+                // Randomize movement for each star
+                let randomX = (Math.random() - 0.5) * 2;
+                let randomY = (Math.random() - 0.5) * 2;
+
+                let currentX = parseFloat(star.style.left) || 0;
+                let currentY = parseFloat(star.style.top) || 0;
+
+                star.style.left = `${currentX + randomX}%`;
+                star.style.top = `${currentY + randomY}%`;
+
+                // Make sure stars stay within bounds
+                if (currentX > 100) star.style.left = "0%";
+                if (currentX < 0) star.style.left = "100%";
+                if (currentY > 100) star.style.top = "0%";
+                if (currentY < 0) star.style.top = "100%";
+            });
+        }
+
+        // Continuously move stars every 50ms for smooth animation
+        setInterval(moveStars, 50);
+
+        // Parallax effect for the custom cursor
+        document.body.addEventListener("mousemove", function (e) {
             let cursor = document.getElementById("cursor");
 
-            // Move stars based on cursor movement
-            stars.forEach(star => {
-                let xOffset = (mouseX - window.innerWidth / 2) * 0.05;
-                let yOffset = (mouseY - window.innerHeight / 2) * 0.05;
-                star.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            });
-
             // Move the custom cursor
-            cursor.style.left = `${mouseX - cursor.offsetWidth / 2}px`;
-            cursor.style.top = `${mouseY - cursor.offsetHeight / 2}px`;
+            cursor.style.left = `${e.clientX - cursor.offsetWidth / 2}px`;
+            cursor.style.top = `${e.clientY - cursor.offsetHeight / 2}px`;
         });
 
         // Toggle Legal Information Visibility
@@ -197,6 +213,5 @@
         gtag('js', new Date());
         gtag('config', 'G-RXWZVD8JHT');
     </script>
-
 </body>
 </html>
