@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot by Slymi</title>
     <style>
-        /* Main Styling */
         body {
             background-color: #000;
             color: #ffffff;
@@ -44,7 +43,7 @@
             border-radius: 5px;
         }
         .legal-info {
-            display: none;
+            display: block;
             background-color: #202225;
             padding: 15px;
             border-radius: 5px;
@@ -52,12 +51,14 @@
             max-width: 700px;
             text-align: left;
             z-index: 2;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 1s ease, max-height 1s ease;
         }
         .legal-info h3 {
             margin-top: 0;
         }
-
-        /* Parallax Star Background Styling */
         .parallax-background {
             position: absolute;
             top: 0;
@@ -68,7 +69,6 @@
             z-index: -1;
             overflow: hidden;
         }
-
         .star {
             position: absolute;
             width: 3px;
@@ -77,8 +77,6 @@
             border-radius: 50%;
             animation: twinkle 2s infinite ease-in-out;
         }
-
-        /* Animation for the twinkling stars */
         @keyframes twinkle {
             0% { opacity: 0.5; }
             50% { opacity: 1; }
@@ -91,61 +89,44 @@
     <h1>Welcome to Slymi's Chatbot!</h1>
     <p>This chatbot was created by Slymi and is still a work in progress. Your feedback is valuable to me as we continue to improve it! To start chatting, click the button in the bottom right.</p>
 
-    <!-- Button to show legal information -->
     <div class="button-container">
         <button class="legal-button" onclick="toggleLegalInfo()">Legal Notice & Privacy Policy</button>
     </div>
 
-    <!-- Collapsible Legal Information Section -->
     <div id="legal-info" class="legal-info">
         <h3>Impressum</h3>
         <p>This is a personal, non-commercial project by Slymi.</p>
-        <p>For any questions or concerns, please contact "slymih" on Discord..</p>
+        <p>For any questions or concerns, please contact "slymih" on Discord.</p>
 
         <h3>Privacy Policy</h3>
         <p>This website uses third-party services for functionality and analytics:</p>
         <ul>
-            <li>**Chatbot.com** - provides the chat functionality.</li>
-            <li>**Google Analytics** - used to detect bugs and visitor amount.</li>
-            <li>**GitHub Pages** - hosts the website on a GitHub server.</li>
+            <li><strong>Chatbot.com</strong> - provides the chat functionality.</li>
+            <li><strong>Google Analytics</strong> - used to detect bugs and visitor amount.</li>
+            <li><strong>GitHub Pages</strong> - hosts the website on a GitHub server.</li>
         </ul>
         <p>Your data may be shared with these services for the sole purpose of enabling the chatbot and understanding how the website is used.</p>
     </div>
 
-    <!-- Parallax Star Background -->
     <div class="parallax-background"></div>
 
-    <!-- Custom Cursor -->
-    <div id="cursor" class="cursor"></div>
-
-    <!-- Script for Parallax effect on stars and custom cursor -->
     <script>
-        // Create stars in the background
         for (let i = 0; i < 100; i++) {
             let star = document.createElement("div");
             star.classList.add("star");
             document.querySelector(".parallax-background").appendChild(star);
-
-            // Randomize star position
             star.style.top = `${Math.random() * 100}vh`;
             star.style.left = `${Math.random() * 100}vw`;
-
-            // Add random size for twinkling effect
             star.style.animationDuration = `${Math.random() * 3 + 1}s`;
         }
 
-        // Function to move the stars smoothly with time
         function moveStars() {
             let stars = document.querySelectorAll(".star");
             stars.forEach(star => {
                 let currentX = parseFloat(star.style.left) || 0;
                 let currentY = parseFloat(star.style.top) || 0;
-
-                // Speed up the star movement by adjusting the values
-                star.style.left = `${currentX + 0.2}%`; // Faster horizontal movement
-                star.style.top = `${currentY + 0.2}%`; // Faster vertical movement
-
-                // Reset the stars position once they go out of bounds
+                star.style.left = `${currentX + 0.2}%`;
+                star.style.top = `${currentY + 0.2}%`;
                 if (currentX > 100) star.style.left = "0%";
                 if (currentX < 0) star.style.left = "100%";
                 if (currentY > 100) star.style.top = "0%";
@@ -153,30 +134,21 @@
             });
         }
 
-        // Continuously move stars every 30ms for a faster animation
         setInterval(moveStars, 30);
 
-        // Parallax effect for the custom cursor
-        document.body.addEventListener("mousemove", function (e) {
-            let cursor = document.getElementById("cursor");
-
-            // Move the custom cursor
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-        });
-
-        // Toggle Legal Information Visibility
         function toggleLegalInfo() {
             var legalInfo = document.getElementById("legal-info");
-            if (legalInfo.style.display === "none" || legalInfo.style.display === "") {
-                legalInfo.style.display = "block";
+
+            if (legalInfo.style.opacity === "0" || legalInfo.style.opacity === "") {
+                legalInfo.style.maxHeight = "1000px";  
+                legalInfo.style.opacity = "1";
             } else {
-                legalInfo.style.display = "none";
+                legalInfo.style.maxHeight = "0";
+                legalInfo.style.opacity = "0";  
             }
         }
     </script>
 
-    <!-- Start of ChatBot (www.chatbot.com) code -->
     <script>
         window.__ow = window.__ow || {};
         window.__ow.organizationId = "2509a875-db2d-41c1-9744-2510652ecd70";
@@ -186,9 +158,7 @@
         ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
     </script>
     <noscript>You need to <a href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/" rel="noopener nofollow">enable JavaScript</a> in order to use the AI chatbot tool powered by <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank">ChatBot</a></noscript>
-    <!-- End of ChatBot code -->
 
-    <!-- Google Analytics Code -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RXWZVD8JHT"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
