@@ -94,7 +94,7 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 1000; /* Ensure it's above other elements */
-            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
         }
 
     </style>
@@ -147,22 +147,18 @@
             star.style.animationDuration = `${Math.random() * 3 + 1}s`;
         }
 
-        // Function to move the stars automatically (Parallax effect)
+        // Function to move the stars smoothly with time
         function moveStars() {
             let stars = document.querySelectorAll(".star");
-
             stars.forEach(star => {
-                // Randomize movement for each star
-                let randomX = (Math.random() - 0.5) * 2;
-                let randomY = (Math.random() - 0.5) * 2;
-
                 let currentX = parseFloat(star.style.left) || 0;
                 let currentY = parseFloat(star.style.top) || 0;
 
-                star.style.left = `${currentX + randomX}%`;
-                star.style.top = `${currentY + randomY}%`;
+                // Move stars slowly across the screen
+                star.style.left = `${currentX + 0.05}%`; // Slow horizontal movement
+                star.style.top = `${currentY + 0.05}%`; // Slow vertical movement
 
-                // Make sure stars stay within bounds
+                // Reset the stars position once they go out of bounds
                 if (currentX > 100) star.style.left = "0%";
                 if (currentX < 0) star.style.left = "100%";
                 if (currentY > 100) star.style.top = "0%";
@@ -178,8 +174,8 @@
             let cursor = document.getElementById("cursor");
 
             // Move the custom cursor
-            cursor.style.left = `${e.clientX - cursor.offsetWidth / 2}px`;
-            cursor.style.top = `${e.clientY - cursor.offsetHeight / 2}px`;
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
         });
 
         // Toggle Legal Information Visibility
