@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot by Slymi</title>
     <style>
+        /* Main page styling */
         body {
             background-color: #2c2f33;
             color: #ffffff;
@@ -16,6 +17,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            overflow: hidden; /* Hides scrollbars */
         }
         h1 {
             font-size: 2.5em;
@@ -27,21 +29,21 @@
             max-width: 700px;
         }
         .button-container {
-            margin-top: 30px;
+            margin-top: 20px;
         }
         .legal-button {
             background-color: #7289da;
             color: #ffffff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 8px 15px;
+            font-size: 0.9em;
             cursor: pointer;
             border-radius: 5px;
         }
         .legal-info {
             display: none;
             background-color: #202225;
-            padding: 20px;
+            padding: 15px;
             border-radius: 5px;
             margin-top: 20px;
             max-width: 700px;
@@ -50,9 +52,29 @@
         .legal-info h3 {
             margin-top: 0;
         }
+
+        /* Background effect styling */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
     </style>
 </head>
 <body>
+    <!-- Fancy Background Effect -->
+    <div class="background"></div>
 
     <h1>Welcome to Slymi's Chatbot!</h1>
     <p>This chatbot was created by Slymi and is still a work in progress. Your feedback is valuable to me as we continue to improve it! To start chatting, click the button in the bottom right.</p>
@@ -66,14 +88,14 @@
     <div id="legal-info" class="legal-info">
         <h3>Impressum</h3>
         <p>This is a personal, non-commercial project by Slymi.</p>
-        <p>For any questions or concerns, please contact "slymih" on Discord..</p>
+        <p>For any questions or concerns, please contact "slymih" on Discord.</p>
 
         <h3>Privacy Policy</h3>
         <p>This website uses third-party services for functionality and analytics:</p>
         <ul>
-            <li>**Chatbot.com** - provides the chat functionality.</li>
-            <li>**Google Analytics** - used to detect bugs and visitor amount.</li>
-            <li>**GitHub Pages** - hosts the website on a GitHub server.</li>
+            <li><strong>Chatbot.com</strong> - provides the chat functionality.</li>
+            <li><strong>Google Analytics</strong> - used to detect bugs and visitor amount.</li>
+            <li><strong>GitHub Pages</strong> - hosts the website on a GitHub server.</li>
         </ul>
         <p>Your data may be shared with these services for the sole purpose of enabling the chatbot and understanding how the website is used.</p>
     </div>
@@ -81,16 +103,36 @@
     <!-- Script to toggle the visibility of the legal information -->
     <script>
         function toggleLegalInfo() {
-            var legalInfo = document.getElementById("legal-info");
-            if (legalInfo.style.display === "none" || legalInfo.style.display === "") {
-                legalInfo.style.display = "block";
-            } else {
-                legalInfo.style.display = "none";
-            }
+            const legalInfo = document.getElementById("legal-info");
+            legalInfo.style.display = (legalInfo.style.display === "block") ? "none" : "block";
         }
     </script>
 
-    <!-- Start of ChatBot (www.chatbot.com) code -->
+    <!-- Fancy Background Effect Script -->
+    <script>
+        const background = document.querySelector('.background');
+
+        // Function to create animated circles on mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.style.width = circle.style.height = `${Math.random() * 100 + 20}px`;
+            circle.style.left = `${e.pageX}px`;
+            circle.style.top = `${e.pageY}px`;
+            circle.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+            background.appendChild(circle);
+
+            setTimeout(() => {
+                circle.style.transform = 'scale(2)';
+                circle.style.opacity = '0';
+            }, 0);
+
+            // Remove the circle after animation ends
+            setTimeout(() => background.removeChild(circle), 500);
+        });
+    </script>
+
+    <!-- ChatBot (Chatbot.com) integration -->
     <script>
         window.__ow = window.__ow || {};
         window.__ow.organizationId = "2509a875-db2d-41c1-9744-2510652ecd70";
@@ -99,10 +141,8 @@
         window.__ow.product_name = "chatbot";   
         ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
     </script>
-    <noscript>You need to <a href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/" rel="noopener nofollow">enable JavaScript</a> in order to use the AI chatbot tool powered by <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank">ChatBot</a></noscript>
-    <!-- End of ChatBot code -->
 
-    <!-- Google Analytics Code -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RXWZVD8JHT"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -110,6 +150,5 @@
         gtag('js', new Date());
         gtag('config', 'G-RXWZVD8JHT');
     </script>
-
 </body>
 </html>
