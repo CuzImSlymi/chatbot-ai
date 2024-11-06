@@ -18,7 +18,6 @@
             margin: 0;
             padding: 20px;
             overflow: hidden;
-            cursor: none; /* Hide default cursor */
         }
         h1 {
             font-size: 2.5em;
@@ -86,15 +85,18 @@
             100% { opacity: 0.5; }
         }
 
-        /* Parallax effect for stars */
-        .star {
-            animation: moveStars 1s linear infinite;
+        /* Cursor Styling */
+        .cursor {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: orange;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000; /* Ensure it's above other elements */
+            transition: transform 0.1s ease;
         }
 
-        @keyframes moveStars {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(200px, 200px); }
-        }
     </style>
 </head>
 <body>
@@ -126,7 +128,10 @@
     <!-- Parallax Star Background -->
     <div class="parallax-background"></div>
 
-    <!-- Script for Parallax effect on stars -->
+    <!-- Custom Cursor -->
+    <div id="cursor" class="cursor"></div>
+
+    <!-- Script for Parallax effect on stars and custom cursor -->
     <script>
         // Create stars in the background
         for (let i = 0; i < 100; i++) {
@@ -147,12 +152,18 @@
             let stars = document.querySelectorAll(".star");
             let mouseX = e.clientX;
             let mouseY = e.clientY;
+            let cursor = document.getElementById("cursor");
 
+            // Move stars based on cursor movement
             stars.forEach(star => {
-                let xOffset = (mouseX - window.innerWidth / 2) * 0.01;
-                let yOffset = (mouseY - window.innerHeight / 2) * 0.01;
+                let xOffset = (mouseX - window.innerWidth / 2) * 0.05;
+                let yOffset = (mouseY - window.innerHeight / 2) * 0.05;
                 star.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
             });
+
+            // Move the custom cursor
+            cursor.style.left = `${mouseX - cursor.offsetWidth / 2}px`;
+            cursor.style.top = `${mouseY - cursor.offsetHeight / 2}px`;
         });
 
         // Toggle Legal Information Visibility
